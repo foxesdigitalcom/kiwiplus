@@ -25,15 +25,19 @@ jobs:
           java-version: '17'
 
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm install
+          npm install @capacitor/cli @capacitor/core @capacitor/android
 
       - name: Download App Icon
         run: |
           mkdir -p assets
           curl -L "https://i.postimg.cc/NGXVg23W/fe7cd3b12b5a34f678bb902d00e8f8ba.jpg" -o assets/icon.png
 
-      - name: Sync Capacitor Android
-        run: npx cap sync android
+      - name: Add and Sync Capacitor Android
+        run: |
+          npx cap add android || true
+          npx cap sync android
 
       - name: Build Android APK
         run: |
