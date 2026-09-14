@@ -1,0 +1,6 @@
+{
+  "appId": "com.kiwiplus.app",
+  "appName": "Kiwi Plus",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}
