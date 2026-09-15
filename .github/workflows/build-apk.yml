@@ -39,6 +39,17 @@ jobs:
           npx cap add android || true
           npx cap sync android
 
+      # Without this step, Gradle generates a brand-new random debug keystore
+      # on every fresh GitHub Actions runner, so every build is signed with a
+      # different key. Android then treats each new APK as a different app
+      # and wipes all local data (including saved logins) on install.
+      # Restoring this same keystore before every build keeps the app's
+      # identity — and therefore its data — consistent across builds.
+      - name: Restore persistent debug keystore
+        run: |
+          mkdir -p ~/.android
+          cp .github/workflows/debug.keystore ~/.android/debug.keystore
+
       - name: Build Android APK
         run: |
           cd android
